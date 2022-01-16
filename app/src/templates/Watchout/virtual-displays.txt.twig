@@ -1,0 +1,272 @@
+UTF8 DATATON_DFC_DATA_590925_620721_AUC069 {
+	"Structure and File Format (C) Copyright Dataton AB" 2020 1
+	"WATCHMAKER" 6 6 5 0
+	ObjTransferable ObjTransferable struct extends {
+		TextTransferable struct extends {
+			Transferable struct {
+			}
+		} {
+		}
+	} {
+		mObjData list object true,
+		mClassName string
+	} {
+		{ // mObjData
+			VirtualDisplayDevice struct extends {
+				DisplayDeviceBase struct extends {
+					StageItem struct extends {
+						StageListItem struct {
+						}
+					} {
+						mName string,
+						mLoc IPoint struct extends {
+							iPDBase struct {
+								x int,
+								y int
+							}
+						} {
+						},
+						mID int,
+						mAddress string,
+						mPrimary bool,
+						mEnabled bool,
+						mDialogState ModelessDialogState struct extends {
+							WinState struct {
+								mState State enum {
+									kWS_NotShown 0,
+									kWS_Iconized 1,
+									kWS_Normal 2,
+									kWS_ZoomedFull 3
+								},
+								mLeft int,
+								mTop int,
+								mWidth int,
+								mHeight int,
+								mActive bool
+							}
+						} {
+							mLastTab int,
+							mNotebook string
+						}
+					}
+				} {
+					mColor IColor struct {
+						r int,
+						g int,
+						b int,
+						a int
+					},
+					mAngle float,
+					mDim IDimension struct extends {
+						iPDBase
+					} {
+					},
+					mWhitePoint FColor struct {
+						r float,
+						g float,
+						b float,
+						a float
+					},
+					mStageDim IDimension,
+					mFixedScale bool,
+					mAntiAliasing AntiAliasing enum {
+						kAA_Off 0,
+						kAA_Low 1,
+						kAA_Medium 2,
+						kAA_High 3
+					},
+					mDisplayMode DisplayMode enum {
+						kDM_Normal 0,
+						kDM_Muted 1,
+						kDM_White 2,
+						kDM_White_Masked 3,
+						kDM_Pattern 4
+					},
+					mIsCustomResolution bool,
+					mSDILinkType SDILinkType enum {
+						kSLT_Single_Link 0,
+						kSLT_Dual_Link 1,
+						kSLT_Quad_Link_Interleaved 2,
+						kSLT_Quad_Link_Quadrant 3
+					},
+					mOutputDevice OutputDevice enum {
+						kOD_GRAPHICS_CARD 1,
+						kOD_SDI 2
+					},
+					mDistortion WarpSpec struct {
+						mMode WarpMode enum {
+							kWP_Rectangular 0,
+							kWP_Perspective 1,
+							kWP_Horizontal 2,
+							kWP_Vertical 3,
+							kWP_Spherical 4,
+							kWP_FromFile 5
+						},
+						mAntiAliasing AntiAliasing2 enum {
+							kAA_Off 0,
+							kAA_Low 1,
+							kAA_Medium 2,
+							kAA_High 3
+						},
+						mSmoothCorners bool,
+						mHasWarpMesh bool,
+						mWarpDir string,
+						mHorizontalRows list WarpRow struct {
+							mOriginalY float,
+							mWarpPoints list WarpingPoint struct {
+								mOriginalX float,
+								mAnchor BezierPoint struct extends {
+									Point struct extends {
+										vtCSBase struct {
+											x float,
+											y float
+										}
+									} {
+									}
+								} {
+									mControl1 Point,
+									mControl2 Point
+								},
+								mVerticalControl array 2 Point,
+								mDistribution array 4 float
+							} false
+						} false,
+						mDirectMesh DirectMesh struct {
+							mVertices list DirectMeshPoint struct {
+								mDestScreenCoord Point,
+								mUVCoord Point,
+								mColor IColor
+							} false,
+							mTriangles list DirectMeshTriangle struct {
+								mPointIndices array 3 int
+							} false
+						}
+					},
+					mMasks list DisplayMaskSpec struct extends {
+						DisplayMaskSpecBase struct {
+							mIsEnabled bool
+						}
+					} {
+						mEdges list DMEdge struct {
+							mInner DMPoint struct {
+								mPos Point
+							},
+							mOuter DMPoint,
+							mCollapsed bool
+						} false,
+						mBlendCurve TweenPointTrack struct extends {
+							TweenTrack struct extends {
+								TweenParam struct {
+								}
+							} {
+								mExpanded bool,
+								mHeight int
+							}
+						} {
+							mPoints list TweenPoint struct extends {
+								TweenParam
+							} {
+								mTimePos float
+							} true,
+							mExpr reference TweenExpression struct {
+								mExpr Expression struct {
+									mItems list ExprItem struct {
+									} true
+								},
+								mExprY Expression,
+								mExprZ Expression
+							} false
+						}
+					} false,
+					mMaskList list DisplayMaskSpecBase true,
+					mMasksWithGeometry bool,
+					mIsSynchMaster bool,
+					mDisplayData string,
+					mExternalDisplayData MediaFile struct {
+						mPath string,
+						mFileSize int,
+						mModDate int,
+						mHasURL bool,
+						mIsProxy bool,
+						mNoDownload bool,
+						mAutoRefresh bool
+					},
+					mViewportResolution ViewportResolution enum {
+						kVR_VGA 0,
+						kVR_XGA 1,
+						kVR_SXGA_PLUS 2,
+						kVR_HD 3,
+						kVR_WXGA 4,
+						kVR_FHD 5,
+						kVR_DCI_2K 6,
+						kVR_WUXGA 7,
+						kVR_QHD 8,
+						kVR_UHD_4K 9,
+						kVR_DCI_4K 10,
+						kVR_CUSTOM 11
+					},
+					mSDIViewportResolution SDIViewportResolution enum {
+						kSVR_HD 0,
+						kSVR_FHD 1,
+						kSVR_DCI_2K 2,
+						kSVR_UHD_4K 3,
+						kVR_DCI_4K 10
+					}
+				}
+			} {
+				mPreviewReduced bool
+			} {
+{% for display in displays %}
+				"{{ display.name }}", // mName
+				{ {{ display.x }}, {{ display.y }} }, // mLoc x y
+				{{ display.id }}, // mID
+				"", // mAddress
+				false, // mPrimary
+				true, // mEnabled
+				{ 0, 812, 327, 296, 377, false, -1, "" }, // mDialogState mState mLeft mTop mWidth mHeight mActive mLastTab mNotebook
+				{ 128, 128, 128, 255 }, // mColor r g b a
+				0, // mAngle
+				{ {{ display.width }}, {{ display.height }} }, // mDim x y
+				{ 1, 1, 1, 1 }, // mWhitePoint r g b a
+				{ {{ display.width }}, {{ display.height }} }, // mStageDim x y
+				true, // mFixedScale
+				0, // mAntiAliasing
+				0, // mDisplayMode
+				true, // mIsCustomResolution
+				0, // mSDILinkType
+				0, // mOutputDevice
+				{ // mDistortion
+					0, // mMode
+					0, // mAntiAliasing
+					false, // mSmoothCorners
+					false, // mHasWarpMesh
+					"", // mWarpDir
+					{ // mHorizontalRows
+					},
+					{ // mDirectMesh
+						{ // mVertices
+						},
+						{ // mTriangles
+						}
+					}
+				},
+				{ // mMasks
+				},
+				{ // mMaskList
+				},
+				true, // mMasksWithGeometry
+				false, // mIsSynchMaster
+				"", // mDisplayData
+				{ "", 0, 0, false, false, false, false }, // mExternalDisplayData mPath mFileSize mModDate mHasURL mIsProxy mNoDownload mAutoRefresh
+				1, // mViewportResolution
+				0, // mSDIViewportResolution
+				true // mPreviewReduced
+{% if not loop.last %}
+			},
+			VirtualDisplayDevice {
+{% endif %}
+{% endfor %}
+		},
+		"StageListItem" // mClassName
+	}
+}
