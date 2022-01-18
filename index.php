@@ -1,6 +1,6 @@
 <?php
 
-use App\Warping\Screen\ScreenCollection;
+// use App\Warping\Screen\ScreenCollection;
 
 require(__DIR__."/app/root.php");
 
@@ -8,13 +8,11 @@ require(__DIR__."/app/root.php");
 
 // Form rendered if form not submitted
 
-if (empty($_POST)) {
-    $screenFields = ScreenCollection::getFields();
-    $layers = include(DOCUMENT_ROOT.'/app/defaults/layers.php');
+echo $twig->render('UI/index.html.twig', [
+    'fields' => $screenFields,
 
-    echo $twig->render('UI/index.html.twig', [
-        'fields' => $screenFields,
-        'layers' => $layers
-    ]);
-}
-
+    'layers' => $layerSettings,
+    'screens' => $screens,
+    'projectors' => $projectors,
+    'warping' => $warping
+]);

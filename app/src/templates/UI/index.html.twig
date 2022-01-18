@@ -17,7 +17,7 @@
     </style>
 </head>
 <body>
-    <form method="post" target="_blank">
+    <form method="post">
     <div class="container">
         <h3>Grid settings</h3>
 
@@ -29,21 +29,37 @@
         {% endfor %}
 
         <h3>Screens</h3>
+        <fieldset>
+          {% for screen in screens.forEach %}
+          <div class="input-group input-group-sm">
+            <input type="text" name="screens[{{ loop.index }}][name]" class="form-control" value="{{ screen.name }}">
+            <input type="text" name="screens[{{ loop.index }}][filename]" class="form-control" value="{{ screen.filename }}">
+            <input type="text" name="screens[{{ loop.index }}][width]" class="form-control" value="{{ screen.width }}">
+            <input type="text" name="screens[{{ loop.index }}][height]" class="form-control" value="{{ screen.height }}">
+            <input type="text" name="screens[{{ loop.index }}][density]" class="form-control" value="{{ screen.density }}">
+            <input type="text" name="screens[{{ loop.index }}][unit]" class="form-control" value="{{ screen.unit }}">
+            <input type="text" name="screens[{{ loop.index }}][origin-x]" class="form-control" value="{{ screen.origin.x }}">
+            <input type="text" name="screens[{{ loop.index }}][origin-y]" class="form-control" value="{{ screen.origin.y }}">
+            <input type="text" name="screens[{{ loop.index }}][origin-unit]" class="form-control" value="{{ screen.origin.unit }}">
+          </div>
+          {% endfor %}
+        </fieldset>
+        <button type="submit" name="load-screens" value="load screens" class="btn btn-primary"/>Load Screens</button>
+
         <div> Screens dimensions to be provided as CSV with the following fields :
             {% for field,comment in fields %}
                 <span title="{{ comment }}">{{ field }}</span>{% if not loop.last %},{% endif %}
 
             {% endfor %}
         </div>
-        <textarea name="screens" class="home-block"></textarea>
+        <textarea name="screens-csv" class="home-block"></textarea>
 
         <h3>Projectors</h3>
         <textarea name="projectors" class="home-block"></textarea>
 
     </div>
     <div class="container">
-
-        <button type="submit" name="generate" value="generate grids" class="btn btn-primary"/>Generate Grids</button>
+        <button type="submit" name="generate-grids" value="generate-grids" class="btn btn-primary"/>Generate Grids</button>
         <button type="submit" name="sizes" value="Size for Watchout" class="btn btn-warning"/>Sizes for Watchout</button>
     </div>
     </form>

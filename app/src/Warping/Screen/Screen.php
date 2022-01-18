@@ -39,6 +39,7 @@ class Screen {
     public function __construct(array $screen)
     {
         if (empty($screen['name'])) {
+        print_r($screen);
             throw new ScreenException("Screen name must be specified", 2);
         }
 
@@ -67,17 +68,27 @@ class Screen {
         $this->density = !empty($screen['density']) ? $screen['density'] : 1;
 
         $this->origin = new Origin($screen, $this->width, $this->height);
-        $this->projectors = new ProjectorCollection($screen);
+        // $this->projectors = new ProjectorCollection($screen);
     }
 
     public function getWidthInPixels()
     {
-        return (int) round($this->width * $this->density);
+        return round($this->width * $this->getMetricDensity());
     }
 
     public function getHeightInPixels()
     {
-        return (int) round($this->height * $this->density);
+        return round($this->height * $this->getMetricDensity());
+    }
+
+    public function getWidth()
+    {
+        return $this->width;
+    }
+
+    public function getHeight()
+    {
+        return $this->height;
     }
 
     public function getOrigin()
@@ -98,6 +109,11 @@ class Screen {
     public function getUnit()
     {
         return $this->unit;
+    }
+
+    public function getDensity()
+    {
+        return $this->density;
     }
 
     /**

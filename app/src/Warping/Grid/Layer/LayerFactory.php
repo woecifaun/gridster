@@ -8,13 +8,14 @@ class LayerFactory {
 
     private $layers = [];
 
-    public function __construct($post)
+    public function __construct($layers)
     {
-        if (empty($post['layers'])) {
-            throw new LayerException("Layers settings not found in $_POST", 1);
-        }
+        // if (empty($post['layers'])) {
+        //     throw new LayerException("Layers settings not found in $_POST", 1);
+        // }
 
-        $this->layers = json_decode(preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $post['layers']), true);
+        $this->layers = $layers;
+        // json_decode(preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $post['layers']), true);
     }
 
     public function new($layerType, array $settings, Screen $screen){

@@ -18,29 +18,21 @@ class Origin
 
     public function __construct($settings)
     {
-        if (!isset($settings['origin'])) {
-            return;
-        }
-
-        if (!isset($settings['origin']['x'])) {
+        if (!array_key_exists('origin-x',$settings)) {
             throw new ScreenException("X Origin must be defined", 1);
         }
 
-        if (!isset($settings['origin']['y'])) {
+        if (!array_key_exists('origin-y',$settings)) {
             throw new ScreenException("Y Origin must be defined", 1);
         }
 
-        if (!isset($settings['origin']['unit'])) {
-            throw new ScreenException("Unit for Origin must be defined", 1);
+        if (isset($settings['origin-unit']) && !in_array($settings['origin-unit'], self::SUPPORTED_UNITS)) {
+            throw new ScreenException("Unit for Origin must be one of ".implode(', ',self::SUPPORTED_UNITS), 1);
         }
 
-        if (!in_array($settings['origin']['unit'], self::SUPPORTED_UNITS)) {
-            throw new ScreenException("Unit for Origin must be defined", 1);
-        }
-
-        $this->x = $settings['origin']['x'];
-        $this->y = $settings['origin']['y'];
-        $this->unit = $settings['origin']['unit'];
+        $this->x = $settings['origin-x'] ?? $this->x;
+        $this->y = $settings['origin-y'] ?? $this->y;
+        $this->unit = $settings['origin-unit'] ?? $this->unit;
     }
 
     public function getX()
