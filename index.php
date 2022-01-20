@@ -6,7 +6,6 @@ require(__DIR__."/app/root.php");
 
 // $screens = include(DOCUMENT_ROOT.'/app/defaults/vangogh-boston.php');
 
-// Form rendered if form not submitted
 
 echo $twig->render('UI/index.html.twig', [
     'fields' => $screenFields,
@@ -14,5 +13,7 @@ echo $twig->render('UI/index.html.twig', [
     'layers' => $layerSettings,
     'screens' => $screens,
     'projectors' => $projectors,
-    'warping' => $warping
+
+    'warping' => $warping,
+    'watchoutSizes' => $watchoutSizes,
 ]);

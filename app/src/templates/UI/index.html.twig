@@ -13,7 +13,8 @@
             width: 100%;
             font-family: monospace;
         }
-        tr:nth-child(even) {background-color: yellow;}
+        tr:nth-child(even) {background-color: #eeeeee;}
+        .align-right { text-align: right; }
     </style>
 </head>
 <body>
@@ -60,12 +61,28 @@
     </div>
     <div class="container">
         <button type="submit" name="generate-grids" value="generate-grids" class="btn btn-primary"/>Generate Grids</button>
-        <button type="submit" name="sizes" value="Size for Watchout" class="btn btn-warning"/>Sizes for Watchout</button>
+        <button type="submit" name="watchout-sizes" value="watchout-sizes" class="btn btn-warning"/>Sizes for Watchout</button>
     </div>
+    {% if watchoutSizes is defined %}
+    {% set left = 1000 %}
+    <div class="container">
+        <table class="table">
+            <tr><th>Name</th><th>Width</th><th>Height</th><th>Left</th><th>Top</th></tr>
+            {% for grid in warping.grids %}
+            <tr>
+                <td>{{ grid.name }}</td>
+                <td class="align-right">{{ grid.width }}</td>
+                <td class="align-right">{{ grid.height }}</td>
+                <td class="align-right">{{ left }}</td>
+                <td class="align-right">{{ 1000 }}</td>
+            </tr>
+            {% set left = left + grid.width %}
+            {% endfor %}
+    </div>
+    {% endif %}
     </form>
 
 
-<!-- <img src="my.svg" width="800" height="500"> -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

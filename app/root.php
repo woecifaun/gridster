@@ -48,6 +48,11 @@ if (!empty($_POST['generate-grids'])) {
     foreach ($warping->getGrids() as $grid) {
         $fileSystem->persistSVG($grid->getFilename(), $grid->toSVG());
     }
-// print_r($screens);die;
+}
+
+$watchoutSizes = null;
+if (!empty($_POST['watchout-sizes'])) {
+    $watchoutSizes = true; // trigger twig block
+    $warping = new Warping($screens, $layerFactory);
 }
 
