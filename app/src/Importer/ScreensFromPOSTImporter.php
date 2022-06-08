@@ -28,9 +28,8 @@ class ScreensFromPOSTImporter {
         }
 
         $this->screens = new ScreenCollection();
-        $screens = $post['screens'];
 
-        foreach ($screens as $screen) {
+        foreach ($post['screens'] as $screen) {
             $this->screens->addScreen(new Screen($screen));
         }
     }

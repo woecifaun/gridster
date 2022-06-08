@@ -42,7 +42,7 @@ return [
     "name" => [
         "name" => "Screen Name",
         "size" => 200,
-        "color" => "magenta"
+        "color" => "gold"
     ],
     "projectors" => [
         "name" => "Projectors Info",

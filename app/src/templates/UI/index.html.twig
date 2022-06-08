@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <title>Gridster - The Grid Generator</title>
 
+    <link rel="icon" href="favicon-32x32.png" sizes="32x32" type="image/png">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <style type="text/css">
@@ -12,23 +14,8 @@
             height: 100vh;
             max-height: 100vh;
         }
-/*        .home-block {
-            display: inline-block;
-            min-height: 10em;
-            width: 100%;
-            font-family: monospace;
-        }*/
         tr:nth-child(even) {background-color: #eeeeee;}
         .align-right { text-align: right; }
-/*        nav {
-          display: flex;
-          flex-wrap: nowrap;
-          height: 100vh;
-          height: -webkit-fill-available;
-          max-height: 100vh;
-          overflow-x: auto;
-          overflow-y: hidden;
-        }*/
         nav {
             width: 280px;
         }
@@ -49,10 +36,10 @@
                 <a href="#" class="nav-link" data-bs-toggle="pill" data-bs-target="#grids-settings" role="tab">Grid Settings</a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link" data-bs-toggle="pill" data-bs-target="#screens-settings" role="tab">Screens</a>
+                <a href="#" class="nav-link" data-bs-toggle="pill" data-bs-target="#screens-settings" role="tab">Screens ({{ screens ? screens.count : '0' }})</a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link" data-bs-toggle="pill" data-bs-target="#projectors-settings" role="tab">Projectors</a>
+                <a href="#" class="nav-link" data-bs-toggle="pill" data-bs-target="#projectors-settings" role="tab">Projectors ({{ projectors ? projectors.count : '0' }})</a>
             </li>
         </ul>
     </nav>
@@ -60,7 +47,7 @@
     <main class="container">
     <form method="post">
 
-    <div id="actions">
+    <div id="actions" class="mt-2">
         <button type="submit" name="generate-grids" value="generate-grids" class="btn btn-primary"
         {% if screens is empty %}disabled{% endif %}
         />
@@ -78,7 +65,7 @@
 
             {% for code, layer in layers|reverse %}
                 <div>
-                    <input type="checkbox" name="layers[{{ code }}]" value="{{ code }}" checked>
+                    <input type="checkbox" name="layers[{{ code }}]" value="{{ code }}" checked disabled>
                     <label for="{{ code }}">{{ layer.name }}</label>
                 </div>
             {% endfor %}
@@ -101,21 +88,44 @@
               </div>
               {% endfor %}
             </fieldset>
-            <button type="submit" name="load-screens" value="load screens" class="btn btn-primary"/>Load Screens</button>
 
             <div> Screens dimensions to be provided as CSV with the following fields :
-                {% for field,comment in fields %}
-                    <span title="{{ comment }}">{{ field }}</span>{% if not loop.last %},{% endif %}
-
+                {% for field,comment in screen_fields %}
+                    <span title="{{ comment }}">{{ field }}</span>{% if not loop.last %}, {% endif %}
                 {% endfor %}
             </div>
-            <textarea name="screens-csv" class="home-block"></textarea>
+            <textarea name="screens-csv" class="w-100"></textarea>
+            <button type="submit" name="load-screens" value="load screens" class="btn btn-primary"/>
+            Load Screens from CSV
+            </button>
 
         </div>
 
         <div class="tab-pane fade" id="projectors-settings" role="tabpanel">
             <h3>Projectors</h3>
-            <textarea name="projectors" class="home-block"></textarea>
+
+            <fieldset>
+              {% for projector in projectors.forEach %}
+              <div class="input-group input-group-sm">
+                <input type="text" name="projectors[{{ loop.index }}][name]" class="form-control" value="{{ projector.name }}">
+                <input type="text" name="projectors[{{ loop.index }}][screen]" class="form-control" value="{{ projector.screen }}">
+                <input type="text" name="projectors[{{ loop.index }}][width]" class="form-control" value="{{ projector.width }}">
+                <input type="text" name="projectors[{{ loop.index }}][height]" class="form-control" value="{{ projector.height }}">
+                <input type="text" name="projectors[{{ loop.index }}][output]" class="form-control" value="{{ projector.output }}">
+                <input type="text" name="projectors[{{ loop.index }}][ip]" class="form-control" value="{{ projector.ip }}">
+              </div>
+              {% endfor %}
+            </fieldset>
+
+            <div> Projectors settings to be provided as CSV with the following fields :
+                {% for field,comment in projectorFields %}
+                    <span title="{{ comment }}">{{ field }}</span>{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </div>
+            <textarea name="projectors-csv" class="w-100"></textarea>
+            <button type="submit" name="load-projectors" value="load projectors" class="btn btn-primary"/>
+            Load Projectors from CSV
+            </button>
         </div>
 
         {% if watchoutSizes is not empty %}
@@ -129,12 +139,13 @@
                     <th class="align-right">Left</th>
                     <th class="align-right">Top</th></tr>
                 {% for grid in warping.grids %}
+                {% set top = 2000 - (grid.height / 2)%}
                 <tr>
                     <td>{{ grid.name }}</td>
                     <td class="align-right">{{ grid.width }}</td>
                     <td class="align-right">{{ grid.height }}</td>
                     <td class="align-right">{{ left }}</td>
-                    <td class="align-right">{{ 1000 }}</td>
+                    <td class="align-right">{{ top }}</td>
                 </tr>
                 {% set left = left + grid.width %}
                 {% endfor %}

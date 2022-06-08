@@ -8,10 +8,12 @@ require(__DIR__."/app/root.php");
 
 
 echo $twig->render('UI/index.html.twig', [
-    'fields' => $screenFields,
+    'screen_fields' => $screenFields,
+    'screens' => $screens,
 
     'layers' => $layerSettings,
-    'screens' => $screens,
+
+    'projectorFields' => $projectorFields,
     'projectors' => $projectors,
 
     'warping' => $warping,

@@ -32,6 +32,13 @@ class Text implements NodeInterface
         return $this;
     }
 
+    public function stroke($stroke)
+    {
+        $this->stroke = $stroke;
+
+        return $this;
+    }
+
     public function size($size)
     {
         $this->size = $size;
@@ -45,6 +52,10 @@ class Text implements NodeInterface
 
         if (!empty($this->color)) {
             $style .= 'fill:'. $this->color .';';
+        }
+
+        if (!empty($this->stroke)) {
+            $style .= 'stroke:'. $this->stroke .';stroke-width:2px;';
         }
 
         return

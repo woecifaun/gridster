@@ -80,18 +80,18 @@ class Projectors extends LayerAbstract implements LayerInterface
             ->id($projector->getName());
 
         $name = (new Text($projector->getName()))
-            ->x('50%')->y('50%')
-            ->color('orange')->size('100');
+            ->x('50%')->y('20%')
+            ->color('gold')->size('60');
         $svg->append($name);
 
         $ip = (new Text($projector->getIp()))
-            ->x('50%')->y('40%')
-            ->color('white')->size('50');
+            ->x('50%')->y('10%')
+            ->color('white')->size('30');
         $svg->append($ip);
 
         $output = (new Text($projector->getOutput()))
-            ->x('50%')->y('60%')
-            ->color('white')->size('50');
+            ->x('50%')->y('30%')
+            ->color('white')->size('30');
         $svg->append($output);
 
         return $svg->render();
@@ -121,18 +121,18 @@ class Projectors extends LayerAbstract implements LayerInterface
                 ->id($projector->getName());
 
             $name = (new Text($projector->getName()))
-                ->x('50%')->y('50%')
-                ->color('orange')->size('100');
+                ->x('50%')->y('20%')
+                ->color('gold')->size('60');
             $svg->append($name);
 
             $ip = (new Text($projector->getIP()))
-                ->x('50%')->y('40%')
-                ->color('white')->size('50');
+                ->x('50%')->y('10%')
+                ->color('white')->size('30');
             $svg->append($ip);
 
             $output = (new Text($projector->getOutput()))
-                ->x('50%')->y('60%')
-                ->color('white')->size('50');
+                ->x('50%')->y('30%')
+                ->color('white')->size('30');
             $svg->append($output);
 
             $svgAsText .= $svg->render();

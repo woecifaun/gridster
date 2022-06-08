@@ -5,6 +5,7 @@ Namespace App\Warping\Screen;
 class Projector {
 
     protected $name;
+    protected $screen;
     protected $width;
     protected $height;
     protected $IP;
@@ -27,6 +28,10 @@ class Projector {
         $this->name = $projector['name'];
         $this->width = $projector['width'];
         $this->height = $projector['height'];
+
+        if (!empty($projector['screen'])) {
+            $this->screen = $projector['screen'];
+        }
 
         if (!empty($projector['ip'])) {
             $this->IP = $projector['ip'];
@@ -60,5 +65,10 @@ class Projector {
     public function getOutput()
     {
         return $this->output;
+    }
+
+    public function getScreen()
+    {
+        return $this->screen;
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+use App\Importer\ProjectorsCSVImporter;
+use App\Importer\ProjectorsFromPOSTImporter;
 use App\Importer\ScreensCSVImporter;
 use App\Importer\ScreensFromPOSTImporter;
 use App\FileSystem\FileSystem;
@@ -25,7 +27,7 @@ $layerFactory = new LayerFactory($layerSettings);
 // Screens
 $screenFields = ScreensCSVImporter::getFields(); // Should fields be in Class Screen ?
 
-$screens;
+$screens = null;
 if (!empty($_POST['screens'])) {
     $importer = new ScreensFromPOSTImporter($_POST);
     $screens = $importer->getScreens();
@@ -37,11 +39,23 @@ if (!empty($_POST['load-screens'])) {
 }
 
 // Projectors
+$projectorFields = ProjectorsCSVImporter::getFields();
+
 $projectors = null;
+if (!empty($_POST['projectors'])) {
+    $importer = new ProjectorsFromPOSTImporter($_POST, $screens);
+    $projectors = $importer->getProjectors();
+}
+// print_r($screens);die("\n".__FILE__.":".__LINE__);
+
+if (!empty($_POST['load-projectors'])) {
+    $importer = new ProjectorsCSVImporter($_POST, $screens);
+    $projectors = $importer->getProjectors();
+}
+// print_r($screens);die("\n".__FILE__.":".__LINE__);
 
 
 $warping = null;
-
 if (!empty($_POST['generate-grids'])) {
     $warping = new Warping($screens, $layerFactory);
 

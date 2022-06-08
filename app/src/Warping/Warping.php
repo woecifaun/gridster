@@ -21,20 +21,11 @@ class Warping
 
     public function __construct(ScreenCollection $screens, LayerFactory $layerFactory)
     {
-        // if (empty($post['layers'])) {
-        //     throw new WarpingException("Layers settings must be provided through \$_POST", 1);
-        // }
-
-        // if (empty($post['screens'])) {
-        //     throw new WarpingException("Screens specifications must be provided through \$_POST", 1);
-        // }
-
         $this->layerFactory = $layerFactory;
         $this->screens = $screens;
 
         foreach ($this->screens->foreach() as $screen) {
-            // print_r($screen);
-            $grid = new Grid($screen, $this->layerFactory);
+            // $grid = new Grid($screen, $this->layerFactory);
             $this->grids[] = new Grid($screen, $this->layerFactory);
         }
     }

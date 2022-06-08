@@ -8,31 +8,19 @@ Namespace App\Warping\Screen;
 
 class ProjectorCollection implements \Countable
 {
-    private $alignment = 0;
-    private $projectors = [];
+    /**
+     *  For now, only possible choice is 'bottom'
+     *  Not even sure it should be in this class (or in Screen object)
+     */
+    protected $alignment = 'bottom'; // For now
 
-    private const SUPPORTED_UNITS = ['pixel', 'percent', 'meter', 'foot'];
+    protected $projectors = [];
 
-    public function __construct($screen)
+    protected const SUPPORTED_UNITS = ['pixel', 'percent', 'meter', 'foot'];
+
+    public function addProjector(Projector $projector)
     {
-        if (empty($screen['projectors'])) {
-            return;
-        }
-
-        if (!isset($screen['projectors']['alignment'])) {
-            throw new ScreenException("Alignment setting for projectors is not defined for screen [".$screen['name']."].", 1);
-        }
-
-        if (!is_array($screen['projectors']['list'])) {
-            throw new ScreenException("List of projectors must be an array for screen [".$screen['name']."].", 1);
-        }
-
-        // TO DO : check for values is in known list
-        $this->projectorAlignment = $screen['projectors']['alignment'];
-
-        foreach ($screen['projectors']['list'] as $projector) {
-            $this->projectors[] = new Projector($projector);
-        }
+        $this->projectors[] = $projector;
     }
 
     public function getAlignment()
@@ -45,7 +33,7 @@ class ProjectorCollection implements \Countable
         return $this->projectors;
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->projectors);
     }

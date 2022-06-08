@@ -39,7 +39,6 @@ class Screen {
     public function __construct(array $screen)
     {
         if (empty($screen['name'])) {
-        print_r($screen);
             throw new ScreenException("Screen name must be specified", 2);
         }
 
@@ -49,7 +48,7 @@ class Screen {
         }
 
         if (empty($screen['unit']) || !in_array($screen['unit'], self::SUPPORTED_UNITS)) {
-            throw new ScreenException("Screen unit is not correct", 1);
+            throw new ScreenException("Screen unit is not correct : ". $screen['unit'] . " provided", 1);
         }
 
         if (empty($screen['width'])) {
@@ -68,17 +67,21 @@ class Screen {
         $this->density = !empty($screen['density']) ? $screen['density'] : 1;
 
         $this->origin = new Origin($screen, $this->width, $this->height);
-        // $this->projectors = new ProjectorCollection($screen);
+        $this->projectors = new ProjectorCollection();
     }
 
-    public function getWidthInPixels()
+    public function getWidthInPixels(): int
     {
-        return round($this->width * $this->getMetricDensity());
+        // Because centers or left of screens can be used as anchor within Stage
+        // width must be even (thus the division then the product by 2)
+        return (int) 2 * round($this->width * $this->getMetricDensity() / 2);
     }
 
-    public function getHeightInPixels()
+    public function getHeightInPixels(): int
     {
-        return round($this->height * $this->getMetricDensity());
+        // Because centers or top of screens can be used as anchor within Stage
+        // width must be even (thus the division then the product by 2)
+        return (int) 2 * round($this->height * $this->getMetricDensity() / 2);
     }
 
     public function getWidth()
@@ -133,6 +136,11 @@ class Screen {
             return $this->density / UNIT_FOOT;
         }
 
+    }
+
+    public function appendProjector(Projector $projector)
+    {
+        $this->projectors->addProjector($projector);
     }
 
     public function getProjectors()
