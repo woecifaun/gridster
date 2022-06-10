@@ -81,10 +81,10 @@
             {% for group in stage.screenGroups %}
                 <div class="input-group input-group-sm mt-3">
                   <span class="input-group-text">Group</span>
-                  <input type="text" name="group[{{ loop.index }}][name]" class="form-control" value="{{ group.name }}">
-                  <input type="text" name="group[{{ loop.index }}][start-x]" class="form-control" value="{{ group.startX }}">
-                  <input type="text" name="group[{{ loop.index }}][start-y]" class="form-control" value="{{ group.startY }}">
-                  <input type="text" name="group[{{ loop.index }}][alignment]" class="form-control" value="{{ group.alignment }}">
+                  <input type="text" name="groups[{{ loop.index }}][name]" class="form-control" value="{{ group.name }}">
+                  <input type="text" name="groups[{{ loop.index }}][start-x]" class="form-control" value="{{ group.startX }}">
+                  <input type="text" name="groups[{{ loop.index }}][start-y]" class="form-control" value="{{ group.startY }}">
+                  <input type="text" name="groups[{{ loop.index }}][alignment]" class="form-control" value="{{ group.alignment }}">
                 </div>
             {% endfor%}
 

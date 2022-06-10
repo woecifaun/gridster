@@ -5,6 +5,7 @@ use App\Importer\ProjectorsFromPOSTImporter;
 use App\Importer\ScreensCSVImporter;
 use App\Importer\ScreensFromPOSTImporter;
 use App\Importer\StageCSVImporter;
+use App\Importer\StageFromPOSTImporter;
 use App\FileSystem\FileSystem;
 use App\Warping\Grid\Layer\LayerFactory;
 use App\Warping\Stage\Stage;
@@ -34,9 +35,14 @@ $layerFactory = new LayerFactory($layerSettings);
 
 $stage = new Stage();
 
+if (!empty($_POST['groups'])) {
+    $importer = new StageFromPOSTImporter($stage, $_POST);
+}
+// print_r($stage);die(__FILE__.__LINE__);
+
 if (!empty($_POST['import-stage-from-csv'])) {
+    $stage = new Stage();
     $importer = new StageCSVImporter($stage, $_POST);
-    // $screens = $importer->getScreens();
 }
 
 // print_r($stage);die(__FILE__.__LINE__);
