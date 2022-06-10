@@ -47,7 +47,11 @@ if (!empty($_POST['import-stage-from-csv'])) {
 
 // print_r($stage);die(__FILE__.__LINE__);
 
-// Screens
+// Form Helpers
+if (!empty($_POST['add-group'])) {
+    $stage->appendEmptyGroup();
+}
+
 $screenFields = ScreensCSVImporter::getFields(); // Should fields be in Class Screen ?
 
 $screens = null;

@@ -1,0 +1,39 @@
+:root {
+  --primary: #444965;
+  --secondary: #ffffff;
+  --ternary: ;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    max-height: 100vh;
+}
+
+tr:nth-child(even) {background-color: #eeeeee;}
+.align-right { text-align: right; }
+
+nav {
+    width: 280px;
+}
+
+main {
+    flex: 1 0 auto;
+    overflow: auto;
+}
+
+.input-group.input-group--group input {
+    border-color: var(--primary);
+}
+
+.input-group.input-group--group .input-group-text {
+    border-color: var(--primary);
+    background-color: var(--primary);
+    color: white;
+}
+
+#add-group.btn {
+    border-color: var(--primary);
+    background-color: var(--primary);
+    color: white;
+}

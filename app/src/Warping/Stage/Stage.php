@@ -18,4 +18,12 @@ class Stage {
     {
         return $this->screenGroups;
     }
+
+    public function appendEmptyGroup()
+    {
+        $new = new ScreenCollection();
+        $new->setName('new group');
+
+        $this->screenGroups[] = $new;
+    }
 }

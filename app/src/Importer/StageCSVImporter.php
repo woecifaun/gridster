@@ -36,22 +36,6 @@ class StageCSVImporter {
             }
 
         }
-
-        // $this->screens = new ScreenCollection();
-
-        // $count = count(self::FIELDS);
-        // $fields = array_keys(self::FIELDS);
-
-        // foreach ($screens as $screen) {
-        //     if (empty($screen)) {
-        //         continue;
-        //     }
-        //     $screen = str_getcsv($screen,',');
-        //     foreach ($fields as $key => $field) {
-        //         $tmpScreen[$field] = isset($screen[$key]) ? $screen[$key] : null;
-        //     }
-        //     $this->screens->addScreen(new Screen($tmpScreen));
-        // }
     }
 
     protected function createGroup(array $group)
