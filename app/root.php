@@ -4,8 +4,10 @@ use App\Importer\ProjectorsCSVImporter;
 use App\Importer\ProjectorsFromPOSTImporter;
 use App\Importer\ScreensCSVImporter;
 use App\Importer\ScreensFromPOSTImporter;
+use App\Importer\StageCSVImporter;
 use App\FileSystem\FileSystem;
 use App\Warping\Grid\Layer\LayerFactory;
+use App\Warping\Stage\Stage;
 use App\Warping\Warping;
 
 define('DOCUMENT_ROOT',realpath(__DIR__."/.."));
@@ -23,6 +25,21 @@ $twig = new \Twig\Environment($loader);
 // Layers
 $layerSettings = include(DOCUMENT_ROOT.'/app/defaults/layers.php');
 $layerFactory = new LayerFactory($layerSettings);
+
+
+// Stage
+// Stage is a collection of groups
+// a group features collection of screens
+// a screen features a collection of projectors
+
+$stage = new Stage();
+
+if (!empty($_POST['import-stage-from-csv'])) {
+    $importer = new StageCSVImporter($stage, $_POST);
+    // $screens = $importer->getScreens();
+}
+
+// print_r($stage);die(__FILE__.__LINE__);
 
 // Screens
 $screenFields = ScreensCSVImporter::getFields(); // Should fields be in Class Screen ?

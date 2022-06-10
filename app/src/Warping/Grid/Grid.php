@@ -4,7 +4,7 @@ Namespace App\Warping\Grid;
 
 use App\Warping\Grid\Layer\LayerFactory;
 use App\Warping\Grid\Layer\LayerStack;
-use App\Warping\Screen\Screen;
+use App\Warping\Stage\Screen;
 
 class Grid
 {

@@ -5,7 +5,7 @@ Namespace App\Warping;
 use App\FileSystem\FileSystem;
 use App\Warping\Grid\Grid;
 use App\Warping\Grid\Layer\LayerFactory;
-use App\Warping\Screen\ScreenCollection;
+use App\Warping\Stage\ScreenCollection;
 
 class Warping
 {

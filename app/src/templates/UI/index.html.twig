@@ -33,6 +33,9 @@
       <hr>
       <ul class="nav nav-pills flex-column mb-auto" role="tablist">
             <li class="nav-item">
+                <a href="#" class="nav-link" data-bs-toggle="pill" data-bs-target="#stage" role="tab">Stage</a>
+            </li>
+            <li class="nav-item">
                 <a href="#" class="nav-link" data-bs-toggle="pill" data-bs-target="#grids-settings" role="tab">Grid Settings</a>
             </li>
             <li class="nav-item">
@@ -59,8 +62,37 @@
             Sizes for Watchout
         </button>
     </div>
+
     <div class="tab-content">
-        <div class="tab-pane fade show active" id="grids-settings" role="tabpanel">
+        <div class="tab-pane fade show active" id="stage" role="tabpanel">
+            <h3>Grid settings</h3>
+
+            <div> Screens dimensions to be provided as CSV with the following fields :
+                {% for field,comment in screen_fields %}
+                    <span title="{{ comment }}">{{ field }}</span>{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </div>
+            <textarea name="stage-csv" class="w-100"></textarea>
+            <button type="submit" name="import-stage-from-csv" value="Load Stage from CSV" class="btn btn-primary"/>
+            Load Stage from CSV
+            </button>
+
+            <div class="group-fields">
+            {% for group in stage.screenGroups %}
+                <div class="input-group input-group-sm mt-3">
+                  <span class="input-group-text">Group</span>
+                  <input type="text" name="group[{{ loop.index }}][name]" class="form-control" value="{{ group.name }}">
+                  <input type="text" name="group[{{ loop.index }}][start-x]" class="form-control" value="{{ group.startX }}">
+                  <input type="text" name="group[{{ loop.index }}][start-y]" class="form-control" value="{{ group.startY }}">
+                  <input type="text" name="group[{{ loop.index }}][alignment]" class="form-control" value="{{ group.alignment }}">
+                </div>
+            {% endfor%}
+
+              <button type="submit" name="add-group" value="add-group" class="w-100 btn btn-primary mt-3">Add a group of screens</button>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="grids-settings" role="tabpanel">
             <h3>Grid settings</h3>
 
             {% for code, layer in layers|reverse %}

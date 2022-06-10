@@ -3,7 +3,7 @@
 Namespace App\Warping\Grid\Layer;
 
 use App\SVG\Text;
-use App\Warping\Screen\Screen;
+use App\Warping\Stage\Screen;
 
 class Name extends LayerAbstract implements LayerInterface
 {

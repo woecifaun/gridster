@@ -4,7 +4,7 @@ Namespace App\Warping\Grid\Layer;
 
 use App\SVG\SVGNode;
 use App\SVG\Text;
-use App\Warping\Screen\Screen;
+use App\Warping\Stage\Screen;
 
 class Projectors extends LayerAbstract implements LayerInterface
 {

@@ -3,7 +3,7 @@
 Namespace App\Warping\Grid\Layer;
 
 Use App\SVG\Line;
-Use App\Warping\Screen\Screen;
+Use App\Warping\Stage\Screen;
 
 class Diagonal extends LayerAbstract implements LayerInterface
 {

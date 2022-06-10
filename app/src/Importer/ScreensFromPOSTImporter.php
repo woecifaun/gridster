@@ -2,8 +2,8 @@
 
 Namespace App\Importer;
 
-use App\Warping\Screen\Screen;
-use App\Warping\Screen\ScreenCollection;
+use App\Warping\Stage\Screen;
+use App\Warping\Stage\ScreenCollection;
 
 class ScreensFromPOSTImporter {
 

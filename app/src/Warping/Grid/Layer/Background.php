@@ -2,7 +2,7 @@
 
 Namespace App\Warping\Grid\Layer;
 
-Use App\Warping\Screen\Screen;
+Use App\Warping\Stage\Screen;
 
 class Background extends LayerAbstract implements LayerInterface {
 

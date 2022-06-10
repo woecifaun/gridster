@@ -1,6 +1,6 @@
 <?php
 
-Namespace App\Warping\Screen;
+Namespace App\Warping\Stage;
 
 /**
  * Should have been App\Warping\Grid\Origin but origin settings are per screen.
@@ -19,15 +19,15 @@ class Origin
     public function __construct($settings)
     {
         if (!array_key_exists('origin-x',$settings)) {
-            throw new ScreenException("X Origin must be defined", 1);
+            throw new StageException("X Origin must be defined", 1);
         }
 
         if (!array_key_exists('origin-y',$settings)) {
-            throw new ScreenException("Y Origin must be defined", 1);
+            throw new StageException("Y Origin must be defined", 1);
         }
 
         if (isset($settings['origin-unit']) && !in_array($settings['origin-unit'], self::SUPPORTED_UNITS)) {
-            throw new ScreenException("Unit for Origin must be one of ".implode(', ',self::SUPPORTED_UNITS), 1);
+            throw new StageException("Unit for Origin must be one of ".implode(', ',self::SUPPORTED_UNITS), 1);
         }
 
         $this->x = $settings['origin-x'] ?? $this->x;

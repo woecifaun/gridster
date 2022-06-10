@@ -2,9 +2,9 @@
 
 Namespace App\Importer;
 
-use App\Warping\Screen\Projector;
-use App\Warping\Screen\ProjectorCollection;
-use App\Warping\Screen\ScreenCollection;
+use App\Warping\Stage\Projector;
+use App\Warping\Stage\ProjectorCollection;
+use App\Warping\Stage\ScreenCollection;
 
 class ProjectorsCSVImporter {
 

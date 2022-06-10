@@ -2,7 +2,7 @@
 
 Namespace App\Warping\Grid\Layer;
 
-use App\Warping\Screen\Screen;
+use App\Warping\Stage\Screen;
 
 class LayerFactory {
 

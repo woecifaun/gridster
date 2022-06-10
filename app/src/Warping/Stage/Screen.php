@@ -1,6 +1,6 @@
 <?php
 
-Namespace App\Warping\Screen;
+Namespace App\Warping\Stage;
 
 class Screen {
 
@@ -39,24 +39,24 @@ class Screen {
     public function __construct(array $screen)
     {
         if (empty($screen['name'])) {
-            throw new ScreenException("Screen name must be specified", 2);
+            throw new StageException("Screen name must be specified", 2);
         }
 
         // TO DO check for proper filename with no special character
         if (empty($screen['filename'])) {
-            throw new ScreenException("Screen filename must be specified", 2);
+            throw new StageException("Screen filename must be specified", 2);
         }
 
         if (empty($screen['unit']) || !in_array($screen['unit'], self::SUPPORTED_UNITS)) {
-            throw new ScreenException("Screen unit is not correct : ". $screen['unit'] . " provided", 1);
+            throw new StageException("Screen unit is not correct : ". $screen['unit'] . " provided", 1);
         }
 
         if (empty($screen['width'])) {
-            throw new ScreenException("Screen width must be specified", 2);
+            throw new StageException("Screen width must be specified", 2);
         }
 
         if (empty($screen['height'])) {
-            throw new ScreenException("Screen height must be specified", 2);
+            throw new StageException("Screen height must be specified", 2);
         }
 
         $this->name = $screen['name'];
@@ -125,7 +125,7 @@ class Screen {
     public function getMetricDensity()
     {
         if ($this->unit == 'pixel') {
-            throw new ScreenException("Cannot determine screen density for [".$this->name."]. A real life unit must be provided e.g meter or foot.", 1);
+            throw new StageException("Cannot determine screen density for [".$this->name."]. A real life unit must be provided e.g meter or foot.", 1);
         }
 
         if ($this->unit == 'meter') {

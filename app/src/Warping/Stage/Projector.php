@@ -1,6 +1,6 @@
 <?php
 
-Namespace App\Warping\Screen;
+Namespace App\Warping\Stage;
 
 class Projector {
 
@@ -14,15 +14,15 @@ class Projector {
     public function __construct(array $projector)
     {
         if (empty($projector['name'])) {
-            throw new ScreenException("Projector name must be specified", 2);
+            throw new StageException("Projector name must be specified", 2);
         }
 
         if (empty($projector['width'])) {
-            throw new ScreenException("Projector width must be specified", 2);
+            throw new StageException("Projector width must be specified", 2);
         }
 
         if (empty($projector['height'])) {
-            throw new ScreenException("Projector height must be specified", 2);
+            throw new StageException("Projector height must be specified", 2);
         }
 
         $this->name = $projector['name'];

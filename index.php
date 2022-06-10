@@ -1,13 +1,12 @@
 <?php
 
-// use App\Warping\Screen\ScreenCollection;
+// use App\Warping\Stage\ScreenCollection;
 
 require(__DIR__."/app/root.php");
 
-// $screens = include(DOCUMENT_ROOT.'/app/defaults/vangogh-boston.php');
-
-
 echo $twig->render('UI/index.html.twig', [
+    'stage' => $stage,
+    
     'screen_fields' => $screenFields,
     'screens' => $screens,
 
