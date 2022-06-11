@@ -35,9 +35,9 @@ $layerFactory = new LayerFactory($layerSettings);
 
 $stage = new Stage();
 
-if (!empty($_POST['groups'])) {
-    $importer = new StageFromPOSTImporter($stage, $_POST);
-}
+// Always try to load stage from POST
+new StageFromPOSTImporter($stage, $_POST);
+
 // print_r($stage);die(__FILE__.__LINE__);
 
 if (!empty($_POST['import-stage-from-csv'])) {

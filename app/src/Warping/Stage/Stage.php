@@ -26,4 +26,9 @@ class Stage {
 
         $this->screenGroups[] = $new;
     }
+
+    public function addScreenToGroup(Screen $screen, $groupIndex)
+    {
+        $this->screenGroups[$groupIndex]->addScreen($screen);
+    }
 }
