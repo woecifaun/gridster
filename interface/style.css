@@ -1,7 +1,7 @@
 :root {
   --primary: #444965;
-  --secondary: #ffffff;
-  --ternary: ;
+  --secondary: #f83940;
+  --ternary: #f8cd4f;
 }
 
 body {
@@ -37,3 +37,25 @@ main {
     background-color: var(--primary);
     color: white;
 }
+
+.screen-inputs {
+    padding-left: 5em;
+}
+
+.input-group.input-group--screen input {
+    border-color: var(--secondary);
+}
+
+.input-group.input-group--screen .input-group-text {
+    border-color: var(--secondary);
+    background-color: var(--secondary);
+    color: white;
+}
+
+.add-screen-btn.btn {
+    border-color: var(--secondary);
+    background-color: var(--secondary);
+    color: white;
+}
+
+

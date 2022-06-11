@@ -71,6 +71,25 @@
                   <input type="text" name="groups[{{ loop.index }}][start-y]" class="form-control" value="{{ group.startY }}">
                   <input type="text" name="groups[{{ loop.index }}][alignment]" class="form-control" value="{{ group.alignment }}">
                 </div>
+
+                <div class="screen-inputs">
+                  {% for screen in group.forEach %}
+                  <div class="input-group input-group-sm input-group--screen mt-3">
+                    <span class="input-group-text">Screen</span>
+                    <input type="text" name="screens[{{ loop.index }}][name]" class="form-control" value="{{ screen.name }}">
+                    <input type="text" name="screens[{{ loop.index }}][filename]" class="form-control" value="{{ screen.filename }}">
+                    <input type="text" name="screens[{{ loop.index }}][width]" class="form-control" value="{{ screen.width }}">
+                    <input type="text" name="screens[{{ loop.index }}][height]" class="form-control" value="{{ screen.height }}">
+                    <input type="text" name="screens[{{ loop.index }}][density]" class="form-control" value="{{ screen.density }}">
+                    <input type="text" name="screens[{{ loop.index }}][unit]" class="form-control" value="{{ screen.unit }}">
+                    <input type="text" name="screens[{{ loop.index }}][origin-x]" class="form-control" value="{{ screen.origin.x }}">
+                    <input type="text" name="screens[{{ loop.index }}][origin-y]" class="form-control" value="{{ screen.origin.y }}">
+                    <input type="text" name="screens[{{ loop.index }}][origin-unit]" class="form-control" value="{{ screen.origin.unit }}">
+                  </div>
+                  {% endfor %}
+                  <button type="submit" name="add-screen" value="{{ loop.index }}" class="w-100 btn mt-3 add-screen-btn" id="add-screen-{{ loop.index }}">Add a screen to group "{{ group.name}}"</button>
+                </div>
+
             {% endfor%}
 
               <button type="submit" name="add-group" value="add-group" class="w-100 btn mt-3" id="add-group">Add a group of screens</button>
