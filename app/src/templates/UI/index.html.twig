@@ -64,8 +64,9 @@
 
             <div class="group-fields">
             {% set screen_index = 0 %}
+            {% set projector_index = 0 %}
             {% for group in stage.screenGroups %}
-                <div class="input-group input-group-sm mt-3 input-group--group">
+                <div class="input-group--group input-group input-group-sm mt-3 ">
                   <span class="input-group-text">Group</span>
                   <input type="text" name="groups[{{ loop.index0 }}][name]" class="form-control" value="{{ group.name }}">
                   <input type="text" name="groups[{{ loop.index0 }}][start-x]" class="form-control" value="{{ group.startX }}">
@@ -77,9 +78,9 @@
 
                 <div class="screen-inputs">
                   {%~ for screen in group.forEach %}
-                    {% set screen_index = screen_index + 1 %}
-                  <div class="input-group input-group-sm input-group--screen mt-3">
+                  <div class="input-group--screen input-group input-group-sm mt-3">
                     <span class="input-group-text">Screen</span>
+                    <input type="hidden" name="screens[{{ screen_index }}][group-index]" value="{{ group_index }}">
                     <input type="text" name="screens[{{ screen_index }}][name]" class="form-control" value="{{ screen.name }}">
                     <input type="text" name="screens[{{ screen_index }}][filename]" class="form-control" value="{{ screen.filename }}">
                     <input type="text" name="screens[{{ screen_index }}][width]" class="form-control" value="{{ screen.width }}">
@@ -89,8 +90,24 @@
                     <input type="text" name="screens[{{ screen_index }}][origin-x]" class="form-control" value="{{ screen.origin.x }}">
                     <input type="text" name="screens[{{ screen_index }}][origin-y]" class="form-control" value="{{ screen.origin.y }}">
                     <input type="text" name="screens[{{ screen_index }}][origin-unit]" class="form-control" value="{{ screen.origin.unit }}">
-                    <input type="hidden" name="screens[{{ screen_index }}][group-index]" value="{{ group_index }}">
                   </div>
+
+                  <div class="projector-inputs">
+                  {%~ for projector in screen.projectors.forEach %}
+                    {% set projector_index = projector_index + 1 %}
+                    <div class="input-group input-group-sm input-group--projector mt-3">
+                      <span class="input-group-text">Projector</span>
+                      <input type="hidden" name="projectors[{{ projector_index }}][screen-index]" value="{{ screen_index }}"> 
+                      <input type="text" name="projectors[{{ projector_index }}][name]" class="form-control" value="{{ projector.name }}">
+                      <input type="text" name="projectors[{{ projector_index }}][width]" class="form-control" value="{{ projector.width }}">
+                      <input type="text" name="projectors[{{ projector_index }}][height]" class="form-control" value="{{ projector.height }}">
+                      <input type="text" name="projectors[{{ projector_index }}][ip]" class="form-control" value="{{ projector.ip }}">
+                      <input type="text" name="projectors[{{ projector_index }}][output]" class="form-control" value="{{ projector.output }}">
+                    </div>
+                  {% endfor %}
+                  </div>
+
+                  {% set screen_index = screen_index + 1 %}
                   {% endfor ~%}
                   <button type="submit" name="add-screen" value="{{ loop.index }}" class="w-100 btn mt-3 add-screen-btn" id="add-screen-{{ loop.index }}">Add a screen to group "{{ group.name }}"</button>
                 </div>
@@ -110,63 +127,6 @@
                     <label for="{{ code }}">{{ layer.name }}</label>
                 </div>
             {% endfor %}
-        </div>
-
-        <div class="tab-pane fade" id="screens-settings" role="tabpanel">
-            <h3>Screens</h3>
-            <fieldset>
-              {% for screen in screens.forEach %}
-              <div class="input-group input-group-sm">
-                <input type="text" name="screens[{{ loop.index }}][name]" class="form-control" value="{{ screen.name }}">
-                <input type="text" name="screens[{{ loop.index }}][filename]" class="form-control" value="{{ screen.filename }}">
-                <input type="text" name="screens[{{ loop.index }}][width]" class="form-control" value="{{ screen.width }}">
-                <input type="text" name="screens[{{ loop.index }}][height]" class="form-control" value="{{ screen.height }}">
-                <input type="text" name="screens[{{ loop.index }}][density]" class="form-control" value="{{ screen.density }}">
-                <input type="text" name="screens[{{ loop.index }}][unit]" class="form-control" value="{{ screen.unit }}">
-                <input type="text" name="screens[{{ loop.index }}][origin-x]" class="form-control" value="{{ screen.origin.x }}">
-                <input type="text" name="screens[{{ loop.index }}][origin-y]" class="form-control" value="{{ screen.origin.y }}">
-                <input type="text" name="screens[{{ loop.index }}][origin-unit]" class="form-control" value="{{ screen.origin.unit }}">
-              </div>
-              {% endfor %}
-            </fieldset>
-
-            <div> Screens dimensions to be provided as CSV with the following fields :
-                {% for field,comment in screen_fields %}
-                    <span title="{{ comment }}">{{ field }}</span>{% if not loop.last %}, {% endif %}
-                {% endfor %}
-            </div>
-            <textarea name="screens-csv" class="w-100"></textarea>
-            <button type="submit" name="load-screens" value="load screens" class="btn btn-primary"/>
-            Load Screens from CSV
-            </button>
-
-        </div>
-
-        <div class="tab-pane fade" id="projectors-settings" role="tabpanel">
-            <h3>Projectors</h3>
-
-            <fieldset>
-              {% for projector in projectors.forEach %}
-              <div class="input-group input-group-sm">
-                <input type="text" name="projectors[{{ loop.index }}][name]" class="form-control" value="{{ projector.name }}">
-                <input type="text" name="projectors[{{ loop.index }}][screen]" class="form-control" value="{{ projector.screen }}">
-                <input type="text" name="projectors[{{ loop.index }}][width]" class="form-control" value="{{ projector.width }}">
-                <input type="text" name="projectors[{{ loop.index }}][height]" class="form-control" value="{{ projector.height }}">
-                <input type="text" name="projectors[{{ loop.index }}][output]" class="form-control" value="{{ projector.output }}">
-                <input type="text" name="projectors[{{ loop.index }}][ip]" class="form-control" value="{{ projector.ip }}">
-              </div>
-              {% endfor %}
-            </fieldset>
-
-            <div> Projectors settings to be provided as CSV with the following fields :
-                {% for field,comment in projectorFields %}
-                    <span title="{{ comment }}">{{ field }}</span>{% if not loop.last %}, {% endif %}
-                {% endfor %}
-            </div>
-            <textarea name="projectors-csv" class="w-100"></textarea>
-            <button type="submit" name="load-projectors" value="load projectors" class="btn btn-primary"/>
-            Load Projectors from CSV
-            </button>
         </div>
 
         {% if watchoutSizes is not empty %}

@@ -58,4 +58,22 @@ main {
     color: white;
 }
 
+.projector-inputs {
+    padding-left: 5em;
+}
+
+.input-group.input-group--projector input {
+    border-color: var(--ternary);
+}
+
+.input-group.input-group--projector .input-group-text {
+    border-color: var(--ternary);
+    background-color: var(--ternary);
+}
+
+.add-projector-btn.btn {
+    border-color: var(--ternary);
+    background-color: var(--ternary);
+}
+
 

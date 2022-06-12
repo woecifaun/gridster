@@ -2,6 +2,7 @@
 
 Namespace App\Importer;
 
+use App\Warping\Stage\Projector;
 use App\Warping\Stage\ScreenCollection;
 use App\Warping\Stage\Screen;
 use App\Warping\Stage\Stage;
@@ -23,6 +24,14 @@ class StageCSVImporter {
         "origin-x" => "From left to right",// From left to right (like Blender top view)
         "origin-y" => "From bottom to top (default 50%)", // From bottom to top (like Blender top view)
         "origin-unit" => "Can be percent, pixel, meter or foot"
+    ];
+
+    protected const PROJECTOR_FIELDS = [
+        "name" => "Name of the screen (can be displayed on the grid)",
+        "width" => "Width in pixels (compute any rotation before filling this field)",
+        "height" => "Height in pixels (compute any rotation before filling this field)",
+        "output" => "Server output (server id and output id)",
+        "ip" => "Can be meter, ft or pixel (density is not applied for the latter)",
     ];
 
     public function __construct(Stage $stage, array $post)
@@ -48,9 +57,16 @@ class StageCSVImporter {
                 $this->stage->appendScreenGroup($currentGroup);
             }
 
-            if (array_shift($line) == 'screen') {
+            if ($line[0] == 'screen') {
+                array_shift($line);
                 $currentScreen = $this->createScreen($line);
                 $currentGroup->addScreen($currentScreen);
+            }
+
+            if ($line[0] == 'projector') {
+                array_shift($line);
+                $projector = $this->createProjector($line);
+                $currentScreen->appendProjector($projector);
             }
         }
     }
@@ -78,9 +94,25 @@ class StageCSVImporter {
         return new Screen($tmpScreen);
     }
 
-    static public function getFields()
+    protected function createProjector(array $values)
     {
-        return self::FIELDS;
+        $fields = array_keys(self::PROJECTOR_FIELDS);
+
+        foreach ($fields as $key => $field) {
+            $tmpProjector[$field] = isset($values[$key]) ? $values[$key] : null;
+        }
+        
+        return new Projector($tmpProjector);
+    }
+
+    static public function getScreenFields()
+    {
+        return self::SCREEN_FIELDS;
+    }
+
+    static public function getProjectorFields()
+    {
+        return self::PROJECTOR_FIELDS;
     }
 
     public function getScreenGroups()

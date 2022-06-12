@@ -1,12 +1,8 @@
 <?php
 
-use App\Importer\ProjectorsCSVImporter;
-use App\Importer\ProjectorsFromPOSTImporter;
-use App\Importer\ScreensCSVImporter;
-use App\Importer\ScreensFromPOSTImporter;
+use App\FileSystem\FileSystem;
 use App\Importer\StageCSVImporter;
 use App\Importer\StageFromPOSTImporter;
-use App\FileSystem\FileSystem;
 use App\Warping\Grid\Layer\LayerFactory;
 use App\Warping\Stage\Stage;
 use App\Warping\Warping;
@@ -52,34 +48,9 @@ if (!empty($_POST['add-group'])) {
     $stage->appendEmptyGroup();
 }
 
-$screenFields = ScreensCSVImporter::getFields(); // Should fields be in Class Screen ?
+$screenFields = StageCSVImporter::getScreenFields(); // Should fields be in Class Screen ?
 
-$screens = null;
-if (!empty($_POST['screens'])) {
-    $importer = new ScreensFromPOSTImporter($_POST);
-    $screens = $importer->getScreens();
-}
-
-if (!empty($_POST['load-screens'])) {
-    $importer = new ScreensCSVImporter($_POST);
-    $screens = $importer->getScreens();
-}
-
-// Projectors
-$projectorFields = ProjectorsCSVImporter::getFields();
-
-$projectors = null;
-if (!empty($_POST['projectors'])) {
-    $importer = new ProjectorsFromPOSTImporter($_POST, $screens);
-    $projectors = $importer->getProjectors();
-}
-// print_r($screens);die("\n".__FILE__.":".__LINE__);
-
-if (!empty($_POST['load-projectors'])) {
-    $importer = new ProjectorsCSVImporter($_POST, $screens);
-    $projectors = $importer->getProjectors();
-}
-// print_r($screens);die("\n".__FILE__.":".__LINE__);
+$projectorFields = StageCSVImporter::getProjectorFields();
 
 
 $warping = null;

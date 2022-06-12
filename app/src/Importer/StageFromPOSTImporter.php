@@ -2,6 +2,7 @@
 
 Namespace App\Importer;
 
+use App\Warping\Stage\Projector;
 use App\Warping\Stage\Screen;
 use App\Warping\Stage\ScreenCollection;
 
@@ -19,8 +20,17 @@ class StageFromPOSTImporter
         "origin-unit",
     ];
 
+    protected const PROJECTOR_FIELDS = [
+        "name",
+        "width",
+        "height",
+        "output",
+        "ip",
+    ];
+
     public function __construct($stage, array $post)
     {
+        // print_r($post);die(__FILE__);
         if (empty($post['groups'])) {
             return;
         }
@@ -40,16 +50,38 @@ class StageFromPOSTImporter
             return;
         }
 
-        foreach ($post['screens'] as $screenProperties) {
-            $screen = new Screen($screenProperties);
+        $screens = [];
+        $screenIndex = 0;
 
-            $stage->addScreenToGroup($screen, $screenProperties['group-index']);
+        foreach ($post['screens'] as $screenProperties) {
+            $screens[$screenIndex] = new Screen($screenProperties);
+
+            $stage->addScreenToGroup($screens[$screenIndex], $screenProperties['group-index']);
+            $screenIndex++;
         }
+
+        if (empty($post['projectors'])) {
+            return;
+        }
+
+        foreach ($post['projectors'] as $projectorProperties) {
+            $projector = new Projector($projectorProperties);
+
+            $screenIndex = (int) $projectorProperties['screen-index'];
+            $screens[$screenIndex]->appendProjector($projector);
+        }
+
+
     }
 
-    static public function getFields()
+    static public function getScreenFields()
     {
         return self::SCREEN_FIELDS;
+    }
+
+    static public function getProjectorFields()
+    {
+        return self::PROJECTOR_FIELDS;
     }
 
     public function getScreens()
