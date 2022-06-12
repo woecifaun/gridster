@@ -18,16 +18,34 @@
       <hr>
       <ul class="nav nav-pills flex-column mb-auto" role="tablist">
             <li class="nav-item">
-                <a href="#" class="nav-link" data-bs-toggle="pill" data-bs-target="#stage" role="tab">Stage</a>
+                <a href="#" class="nav-link" data-bs-toggle="pill" data-bs-target="#stage" role="tab">
+                <i class="bi-layout-wtf"></i> View Stage
+                </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link" data-bs-toggle="pill" data-bs-target="#grids-settings" role="tab">Grid Settings</a>
+                <a href="#" class="nav-link" data-bs-toggle="pill" data-bs-target="#edit-setup" role="tab">
+                <i class="bi-pencil-fill"></i> Edit Stage
+                </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link" data-bs-toggle="pill" data-bs-target="#screens-settings" role="tab">Screens ({{ screens ? screens.count : '0' }})</a>
+                <a href="#" class="nav-link" data-bs-toggle="pill" data-bs-target="#grids-settings" role="tab">
+                <i class="bi-grid-3x3"></i> Edit Grids
+                </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link" data-bs-toggle="pill" data-bs-target="#projectors-settings" role="tab">Projectors ({{ projectors ? projectors.count : '0' }})</a>
+                <a href="#" class="nav-link" data-bs-toggle="pill" data-bs-target="#load-setup" role="tab">
+                <i class="bi-file-arrow-up"></i> Load layout from CSV
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-bs-toggle="pill" data-bs-target="#save-setup" role="tab">
+                <i class="bi-save"></i> Save Layout as CSV
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-bs-toggle="pill" data-bs-target="#how-to" role="tab">
+                <i class="bi-question-circle"></i> Documentation
+                </a>
             </li>
         </ul>
     </nav>
@@ -35,32 +53,24 @@
     <main class="container">
     <form method="post">
 
-    <div id="actions" class="mt-2">
+    <div id="actions" class="pb-3 mt-3 mb-3">
         <button type="submit" name="generate-grids" value="generate-grids" class="btn btn-primary"
-        {% if screens is empty %}disabled{% endif %}
+        {% if stage.isEmpty %}disabled{% endif %}
         />
             Generate Grids
         </button>
         <button type="submit" name="watchout-sizes" value="watchout-sizes" class="btn btn-warning"
-        {% if screens is empty %}disabled{% endif %}
+        {% if stage.isEmpty %}disabled{% endif %}
         />
             Sizes for Watchout
         </button>
     </div>
 
     <div class="tab-content">
-        <div class="tab-pane fade show active" id="stage" role="tabpanel">
-            <h3>Grid settings</h3>
+        <div class="tab-pane fade show" id="stage" role="tabpanel">
+        </div>{# #stage #}
 
-            <div> ******************************* :
-                {% for field,comment in screen_fields %}
-                    <span title="{{ comment }}">{{ field }}</span>{% if not loop.last %}, {% endif %}
-                {% endfor %}
-            </div>
-            <textarea name="stage-csv" class="w-100"></textarea>
-            <button type="submit" name="import-stage-from-csv" value="Load Stage from CSV" class="btn btn-primary"/>
-            Load Stage from CSV
-            </button>
+        <div class="tab-pane fade show active" id="edit-setup" role="tabpanel">
 
             <div class="group-fields">
             {% set screen_index = 0 %}
@@ -109,13 +119,23 @@
 
                   {% set screen_index = screen_index + 1 %}
                   {% endfor ~%}
-                  <button type="submit" name="add-screen" value="{{ loop.index }}" class="w-100 btn mt-3 add-screen-btn" id="add-screen-{{ loop.index }}">Add a screen to group "{{ group.name }}"</button>
                 </div>
-
             {% endfor%}
 
-              <button type="submit" name="add-group" value="add-group" class="w-100 btn mt-3" id="add-group">Add a group of screens</button>
             </div>
+        </div>{# #edit-setup #}
+
+        <div class="tab-pane fade show" id="load-setup" role="tabpanel">
+
+            <div> ????? :
+                {% for field,comment in screen_fields %}
+                    <span title="{{ comment }}">{{ field }}</span>{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </div>
+            <textarea name="stage-csv" class="w-100 mt-3"></textarea>
+            <button type="submit" name="import-stage-from-csv" value="Load Stage from CSV" class="btn btn-primary"/>
+            Load Stage from CSV
+            </button>
         </div>
 
         <div class="tab-pane fade" id="grids-settings" role="tabpanel">
@@ -127,7 +147,7 @@
                     <label for="{{ code }}">{{ layer.name }}</label>
                 </div>
             {% endfor %}
-        </div>
+        </div>{# #grids-settings #}
 
         {% if watchoutSizes is not empty %}
         {% set left = 1000 %}

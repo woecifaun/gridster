@@ -31,4 +31,15 @@ class Stage {
     {
         $this->screenGroups[$groupIndex]->addScreen($screen);
     }
+
+    public function isEmpty()
+    {
+        $count = 0;
+
+        foreach ($this->screenGroups as $group) {
+            $count += count($group);
+        }
+
+        return ($count == 0);
+    }
 }

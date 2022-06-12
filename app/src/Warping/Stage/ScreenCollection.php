@@ -2,8 +2,8 @@
 
 Namespace App\Warping\Stage;
 
-class ScreenCollection {
-
+class ScreenCollection implements \Countable
+{
     protected $screens = [];
 
     protected $name;
@@ -38,7 +38,7 @@ class ScreenCollection {
         return $this->screens;
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->screens);
     }
