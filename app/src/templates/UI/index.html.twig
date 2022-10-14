@@ -47,6 +47,11 @@
                 <i class="bi-question-circle"></i> Documentation
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-bs-toggle="pill" data-bs-target="#watchout-sizes" role="tab">
+                <i class="bi-question-circle"></i> Location for Watchout
+                </a>
+            </li>
         </ul>
     </nav>
 
@@ -149,30 +154,34 @@
             {% endfor %}
         </div>{# #grids-settings #}
 
-        {% if watchoutSizes is not empty %}
-        {% set left = 1000 %}
-        <div>
+        <div class="tab-pane fade" id="watchout-sizes" role="tabpanel">
+        {% if not stage.isEmpty %}
+            {% for group in stage.screenGroups %}
+            <h4>Screens for {{ group.name }}</h4>
             <table class="table">
                 <tr>
                     <th>Name</th>
                     <th class="align-right">Width</th>
                     <th class="align-right">Height</th>
-                    <th class="align-right">Left</th>
-                    <th class="align-right">Top</th></tr>
-                {% for grid in warping.grids %}
-                {% set top = 2000 - (grid.height / 2)%}
-                <tr>
-                    <td>{{ grid.name }}</td>
-                    <td class="align-right">{{ grid.width }}</td>
-                    <td class="align-right">{{ grid.height }}</td>
-                    <td class="align-right">{{ left }}</td>
-                    <td class="align-right">{{ top }}</td>
-                </tr>
-                {% set left = left + grid.width %}
-                {% endfor %}
+                    <th class="align-right">Center X</th>
+                    <th class="align-right">Center Y</th></tr>
+                {% set center_x = group.startX %}
+                    {% for screen in group.foreach %}
+                    {% set offset = loop.first ? 0 : (screen.widthInPixels / 2)  %}
+                    {% set center_x = center_x + offset %}
+                    <tr>
+                        <td>{{ screen.name }}</td>
+                        <td class="align-right">{{ screen.widthInPixels }}</td>
+                        <td class="align-right">{{ screen.heightInPixels }}</td>
+                        <td class="align-right">{{ center_x }}</td>
+                        <td class="align-right">{{ group.startY }}</td>
+                    </tr>
+                    {% set center_x = center_x + (screen.widthInPixels / 2) %}
+                    {% endfor %}
             </table>
-        </div>
+            {% endfor %}
         {% endif %}
+        </div>
     </div>
     </form>
     </main>

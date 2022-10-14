@@ -6,6 +6,7 @@ use App\FileSystem\FileSystem;
 use App\Warping\Grid\Grid;
 use App\Warping\Grid\Layer\LayerFactory;
 use App\Warping\Stage\ScreenCollection;
+use App\Warping\Stage\Stage;
 
 class Warping
 {
@@ -13,39 +14,28 @@ class Warping
     protected $layerFactory = [];
 
     // Screens in real life with values in meters, inches or pixels and their projectors
-    protected $screens = [];
+    protected $stage;
 
     // Generated grids based on layers settings above and real life screens features
     protected $grids = [];
 
 
-    public function __construct(ScreenCollection $screens, LayerFactory $layerFactory)
+    public function __construct(Stage $stage, LayerFactory $layerFactory)
     {
         $this->layerFactory = $layerFactory;
-        $this->screens = $screens;
+        $this->stage = $stage;
 
-        foreach ($this->screens->foreach() as $screen) {
-            // $grid = new Grid($screen, $this->layerFactory);
-            $this->grids[] = new Grid($screen, $this->layerFactory);
+        foreach ($this->stage->getScreenGroups() as $group)
+        {
+            foreach ($group->foreach() as $screen) {
+                $this->grids[] = new Grid($screen, $this->layerFactory);
+            }
         }
     }
 
     public function getGrids()
     {
         return $this->grids;
-    }
-
-    public function getScreensToJSON()
-    {
-        // return "hello\n\rstop";
-        return $_POST['screens'];
-    }
-
-    public function getLayersToJSON()
-    {
-        return $_POST['layers'];
-
-        // return json_encode($_POST['layers'], JSON_PRETTY_PRINT);
     }
 
     public function getScreens()

@@ -53,18 +53,11 @@ $screenFields = StageCSVImporter::getScreenFields(); // Should fields be in Clas
 $projectorFields = StageCSVImporter::getProjectorFields();
 
 
-$warping = null;
-if (!empty($_POST['generate-grids'])) {
-    $warping = new Warping($screens, $layerFactory);
+$warping = new Warping($stage, $layerFactory);
 
+
+if (!empty($_POST['generate-grids'])) {
     foreach ($warping->getGrids() as $grid) {
         $fileSystem->persistSVG($grid->getFilename(), $grid->toSVG());
     }
 }
-
-$watchoutSizes = null;
-if (!empty($_POST['watchout-sizes'])) {
-    $watchoutSizes = true; // trigger twig block
-    $warping = new Warping($screens, $layerFactory);
-}
-

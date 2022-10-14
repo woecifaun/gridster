@@ -2,10 +2,6 @@
 
 Namespace App\Warping\Stage;
 
-/**
- * Should have been App\Warping\Grid\Origin but origin settings are per screen.
- * */
-
 class ProjectorCollection implements \Countable
 {
     /**

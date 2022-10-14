@@ -42,4 +42,17 @@ class Stage {
 
         return ($count == 0);
     }
+
+    public function getAllScreens()
+    {
+        $screens = new ScreenCollection();
+
+        foreach ($this->screenGroups as $group) {
+            foreach ($group as $screen) {
+                $screens->addScreen($screen);
+            }
+        }
+
+        return $screens;
+    }
 }
