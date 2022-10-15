@@ -3,6 +3,7 @@
 use App\FileSystem\FileSystem;
 use App\Importer\StageCSVImporter;
 use App\Importer\StageFromPOSTImporter;
+use App\Service\PNGMaker;
 use App\Warping\Grid\Layer\LayerFactory;
 use App\Warping\Stage\Stage;
 use App\Warping\Warping;
@@ -57,7 +58,19 @@ $warping = new Warping($stage, $layerFactory);
 
 
 if (!empty($_POST['generate-grids'])) {
+    $converter = new PNGMaker();
+
     foreach ($warping->getGrids() as $grid) {
         $fileSystem->persistSVG($grid->getFilename(), $grid->toSVG());
+
+        $converter->convertSVG(
+            $fileSystem->getFullPath($grid->getFilename().'.svg'),
+            $grid
+        );
     }
+}
+
+$watchoutSizes = null;
+if (!empty($_POST['watchout-sizes'])) {
+    $watchoutSizes = true; // trigger twig block
 }
