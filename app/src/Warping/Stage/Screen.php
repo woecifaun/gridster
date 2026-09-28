@@ -5,6 +5,9 @@ Namespace App\Warping\Stage;
 class Screen {
 
     protected $name = 'Screen Name';
+    protected $filename;
+
+
     protected $unit = 'pixel'; // Can be meter, ft or pixel if so, density will not be used
     protected $width = 1920;
     protected $height = 1200;
@@ -21,7 +24,7 @@ class Screen {
     // it makes logical sense to ask for the unit
     protected const SUPPORTED_UNITS = ['pixel', 'meter', 'foot'];
 
-    protected $origin;
+    protected Origin $origin;
 
     /**
      * Projector[]

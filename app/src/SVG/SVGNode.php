@@ -6,6 +6,13 @@ Namespace App\SVG;
 
 class SVGNode implements NodeInterface
 {
+    protected $width;
+    protected $height;
+    protected $x;
+    protected $y;
+
+    protected $id;
+
     /**
      * NodeInterface[]
      */

@@ -8,9 +8,10 @@ class Circles extends LayerAbstract implements LayerInterface
 {
     private $width;
     private $height;
-    private $quantity; // null for automatic or int number if decide by user
+    private $quantity; // null for automatic or int number if decided by user
     private $thickness = 1;
     private $color = 'white';
+    private $radius;
 
 
     public function __construct(array $settings, Screen $screen)

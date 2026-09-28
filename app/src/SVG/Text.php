@@ -4,6 +4,14 @@ Namespace App\SVG;
 
 class Text implements NodeInterface
 {
+    protected $text;
+    protected $x;
+    protected $y;
+    protected $size;
+
+    protected $color;
+    protected $stroke;
+
     public function __construct($text)
     {
         $this->text = $text;

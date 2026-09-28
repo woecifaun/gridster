@@ -50,7 +50,7 @@ class StageCSVImporter {
             if (empty($line)) {
                 continue;
             }
-            $line = str_getcsv($line,',');
+            $line = str_getcsv($line, ',', "\"", "\\");
 
             if ($line[0] == 'group') {
                 $currentGroup = $this->createGroup($line);

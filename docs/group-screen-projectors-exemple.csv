@@ -2,10 +2,10 @@
 # group,"Group Name",x origin,y origin,alignment
 
 # screens are defined as follow
-screen,screen name,filename,width,height,density,unit,origin x,origin y,origin unit
+# screen,screen name,filename,width,height,density,unit,origin x,origin y,origin unit
 
 # projectors are defined as follow
-name,width,height,ip,output
+# name,width,height,ip,output
 
 group,"Group 1",1000,1000,bottom
 screen,"Screen 01",screen-01,12,6.4,188,meter,50,0,percent

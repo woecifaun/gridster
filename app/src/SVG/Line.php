@@ -4,6 +4,14 @@ Namespace App\SVG;
 
 class Line implements NodeInterface
 {
+    protected $x1;
+    protected $y1;
+    protected $x2;
+    protected $y2;
+
+    protected $color;
+    protected $width;
+
     public function x1($x1)
     {
         $this->x1 = $x1;
