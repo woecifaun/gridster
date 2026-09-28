@@ -1,0 +1,14 @@
+# group are defined as follow
+# group,"Group Name",x origin,y origin,alignment
+
+# screens are defined as follow
+screen,screen name,filename,width,height,density,unit,origin x,origin y,origin unit
+
+# projectors are defined as follow
+name,width,height,ip,output
+
+group,"Group 1",1000,1000,bottom
+screen,"Screen 01",screen-01,12,6.4,188,meter,50,0,percent
+projector,"VP 01",1920,1200,192.168.1.101,Server 03@1
+projector,"VP 02",1920,1200,192.168.1.101,Server 03@1
+projector,"VP 03",1920,1200,192.168.1.101,Server 03@1
