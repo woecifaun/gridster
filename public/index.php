@@ -12,6 +12,7 @@ if (isset($_POST['new-project'])) {
 
 
 echo $twig->render('UI/index.html.twig', [
+    'projects' => $projectCenter->listProjects(),
     'stage' => $stage,
 
     'screen_fields' => $screenFields,

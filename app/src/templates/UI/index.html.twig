@@ -1,17 +1,31 @@
 {% extends "UI/shared/base.html.twig" %}
 
 {% block page %}
-<h1>Welcome to Gridster</h1>
+<h1 class="mb-5">Welcome to Gridster</h1>
 
-<form method="post">
-  <div class="mb-3">
-    <label for="projectId" class="form-label">Project Id (for URL and folder)</label>
-    <input class="form-control" type="text" name="project-id" id="projectId">
-  </div>
-  <div class="mb-3">
-    <label for="projectName" class="form-label">Project Name</label>
-    <input class="form-control" type="text" name="project-name" id="projectName">
-  </div>
-  <input class="btn btn-primary" type="submit" name="new-project" value="Create Project">
-</form>
+<section id="new-project" class="mb-5">
+  <h2>Create a new project</h2>
+  <form method="post">
+    <div class="mb-3">
+      <label for="projectId" class="form-label">Project Id (for URL and folder)</label>
+      <input class="form-control" type="text" name="project-id" id="projectId">
+    </div>
+    <div class="mb-3">
+      <label for="projectName" class="form-label">Project Name</label>
+      <input class="form-control" type="text" name="project-name" id="projectName">
+    </div>
+    <input class="btn btn-primary" type="submit" name="new-project" value="Create Project">
+  </form>
+</section>
+
+<section id="project-list" class="mb-5">
+  <h2>Open Recent</h2>
+  <ul>
+  {% for index,project in projects %}
+  <li><a href="/project.php?project={{ index }}">{{ project.name }}</a></li>
+  {% endfor %}
+  </ul>
+</section>
+
+
 {% endblock %}

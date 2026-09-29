@@ -53,4 +53,20 @@ class ProjectCenter
 
         file_put_contents($folder . 'project.binary', serialize($project));
     }
+
+    public function listProjects()
+    {
+        $folders = scandir($this->repository, SCANDIR_SORT_DESCENDING);
+        $projects = [];
+
+        foreach ($folders as $key => $folder) {
+            if (str_starts_with($folder, '.')) {
+                continue;
+            }
+
+            $projects[$folder] = $this->loadProject($folder);
+        }
+
+        return $projects;
+    }
 }
