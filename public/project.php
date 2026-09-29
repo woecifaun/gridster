@@ -1,17 +1,19 @@
 <?php
 
+if (!isset($_GET['project'])) {
+  throw new Exception("Missing project id in query string (e.g ?project=project-a).", 1);
+}
+
+
 use App\Project\ProjectCenter;
 
 require(__DIR__ . "/../app/root.php");
 
 $projectCenter = new ProjectCenter(PROJECT_FOLDER);
+$project = $projectCenter->loadProject($_GET['project']);
 
-if (isset($_POST['new-project'])) {
-  $project = $projectCenter->createProject($_POST);
-}
-
-
-echo $twig->render('UI/index.html.twig', [
+echo $twig->render('UI/project.html.twig', [
+    'project' => $project,
     'stage' => $stage,
 
     'screen_fields' => $screenFields,

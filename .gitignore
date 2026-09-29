@@ -1,4 +1,9 @@
+#domain
+samples/
+projects/
+svg/
+
+#app
 vendor/
 tests/
-samples/
-svg/
+

@@ -7,13 +7,31 @@ class ProjectCenter
 {
     public function __construct(protected $repository) {}
 
+    public function loadProject($projectId): Project
+    {
+        $this->IsValidId($projectId);
+
+        if (!is_dir($this->repository . $projectId . DIRECTORY_SEPARATOR)) {
+            throw new Exception("Project [" . $projectId . "] doesn't exists.", 1);
+        }
+
+        $properties = file_get_contents($this->repository . $projectId . DIRECTORY_SEPARATOR . 'project.binary');
+        $project = unserialize($properties);
+
+        return $project;
+    }
+
     public function createProject(array $settings)
     {
         $id = $this->IsValidId($settings['project-id']);
 
         $project = new Project($id);
+        $project->name = $settings['project-name'];
+
 
         $this->persist($project);
+
+        header("Location: /project.php?project=" . $project->id);
     }
 
     protected function IsValidId($id)
